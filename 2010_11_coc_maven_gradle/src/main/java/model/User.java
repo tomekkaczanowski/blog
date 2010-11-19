@@ -23,4 +23,6 @@ public class User {
 		this.name = name;
 	}
 
+	// Java 6
+	private java.util.Deque<String> whatever;
 }
