@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<project name="simple" default="dist" basedir=".">
+  <property name="src" location="src/main/java"/>
+  <property name="srcTest" location="src/test/java"/>
+  <property name="build" location="build"/>
+  <property name="dist" location="${build}/lib"/>
+  <property name="version" value="1.0-SNAPSHOT" />
+  <path id="classpath.compile">
+    <pathelement location="libs/commons-lang-2.5.jar"/>
+  </path>
+  <path id="classpath.test">
+    <pathelement location="libs/junit-4.8.2.jar"/>
+    <pathelement location="libs/commons-lang-2.5.jar"/>
+    <pathelement location="${srcTest}"/>
+    <pathelement location="${build}/classes"/>
+    <pathelement location="${build}/test-classes"/>
+  </path>
+  <target name="init">
+    <mkdir dir="${build}/classes"/>
+    <mkdir dir="${build}/test-classes"/>
+  </target>
+  <target name="compile" depends="init">
+    <javac srcdir="${src}" destdir="${build}/classes">
+      <classpath refid="classpath.compile"/>
+    </javac>
+  </target>
+  <target name="testCompile" depends="compile">
+    <javac srcdir="${srcTest}" destdir="${build}/test-classes">
+      <classpath refid="classpath.test"/>
+    </javac>
+  </target>
+  <target name="test" depends="testCompile">
+    <junit fork="yes" haltonfailure="yes">
+      <batchtest fork="yes">
+        <fileset dir="${srcTest}">
+          <include name="**/*Test.java"/>
+        </fileset>
+      </batchtest>
+      <classpath refid="classpath.test"/>
+      <formatter type="plain"/>
+    </junit>
+  </target>
+  <target name="dist" depends="test">
+    <mkdir dir="${dist}"/>
+    <jar jarfile="${dist}/coc-comparison-${version}.jar" basedir="${build}/classes"/>
+  </target>
+  <target name="clean">
+    <delete dir="${build}"/>
+  </target>
+</project>
