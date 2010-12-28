@@ -1,0 +1,17 @@
+apply plugin: 'groovy'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+    flatDir name: 'localDirRepo', dirs: 'lib'
+}
+
+dependencies {
+    compile 'schemaspy.org:schemaspy:5.0.0'
+    compile 'hsqldb:hsqldb:1.8.0.10'
+    groovy 'org.codehaus.groovy:groovy-all:1.7.6'
+}
+
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+}
