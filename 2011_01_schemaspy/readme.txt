@@ -6,5 +6,5 @@ compile with
   gradle clean jar
 
 run with
-  java -cp build/libs/2011_01_schemaspy.jar:PATH_TO_GROOVY_ALL_JAR/groovy-all-1.7.6.jar pl.kaczanowscy.tomek.schemaspy.GenerateSqlDiagram sql/inventory.sql sql/whatever.sql
+  java -cp build/libs/2011_01_schemaspy.jar pl.kaczanowscy.tomek.schemaspy.GenerateSqlDiagram sql/inventory.sql sql/whatever.sql
   
